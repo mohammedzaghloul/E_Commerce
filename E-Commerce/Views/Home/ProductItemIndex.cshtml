@@ -1,0 +1,110 @@
+﻿@model IEnumerable<ProductItem>
+
+<!-- Include Bootstrap CSS for styling -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+<div class="container py-4">
+    <h2 class="text-center mb-4 font-weight-bold text-primary">Explore Our Product Collection</h2>
+    <div class="row justify-content-center">
+        @foreach (var productItem in Model)
+        {
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card border-0 shadow-sm h-100 text-center">
+                    <!-- Product Image with Link -->
+                    <a asp-action="ProductItemDetails" asp-route-productId="@productItem.Id" class="text-decoration-none">
+                        <img src="@productItem.ImageUrl" class="card-img-top img-fluid" style="height: 250px; object-fit: cover;" alt="@productItem.Product?.Name" />
+                    </a>
+
+                    <!-- Product Details -->
+                    <div class="card-body p-3">
+                        <h6 class="card-title text-uppercase text-dark font-weight-bold mb-1">@productItem.Product?.Name</h6>
+                        <p class="text-secondary mb-2">@productItem.SKU</p>
+                        <p class="text-success font-weight-bold mb-2">
+                            @productItem.Price.ToString("C", new System.Globalization.CultureInfo("en-US"))
+                        </p>
+
+                       
+                            <span class="badge badge-danger position-absolute" style="top: 10px; left: 10px;">Sale</span>
+                       
+                        <!-- Add to Cart Button -->
+                        <a asp-action="ProductItemDetails" asp-controller="Home" asp-route-ProductId="@productItem.Id" class="btn btn-outline-primary btn-sm w-100 mt-2">
+                            Add to Cart
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!-- Optional: Custom CSS -->
+<style>
+    body {
+        background-color: #f8f9fa; /* Light background */
+    }
+
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        height: 100%;
+        position: relative; /* For badges */
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+
+    .card-img-top {
+        object-fit: cover;
+        height: 250px; /* Fixed height to create consistent card sizes */
+    }
+
+    .card-title {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .btn-outline-primary {
+        border-color: #007bff;
+        color: #007bff;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+    .badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+
+
+</style>

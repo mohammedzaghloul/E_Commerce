@@ -1,0 +1,87 @@
+﻿@model List<ProductItem>
+@{
+    ViewData["Title"] = "Product Item List";
+}
+
+<partial name="_NotificationPartial" />
+
+<div class="container my-5">
+    <div class="row align-items-center pb-3">
+        <div class="col-md-6">
+            <h2 class="text-primary">Product Item List</h2>
+        </div>
+        <div class="col-md-6 text-end">
+            <a asp-controller="ProductItem" asp-action="Upsert" class="btn btn-primary btn-lg">
+                <i class="fa fa-plus-circle"></i> Create New Product Item
+            </a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered table-striped shadow-sm">
+            <thead class="thead-dark">
+                <tr>
+                    <th>SKU</th>
+                    <th>Product Name</th>
+                    <th>Quantity In Stock</th>
+                    <th class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var productItem in Model)
+                {
+                    <tr>
+                        <td>@productItem.SKU</td>
+                        <td>@productItem.Product.Name</td>
+                        <td>@productItem.QuantityInStock</td>
+                        <td class="text-center">
+                            <a asp-controller="ProductItem" asp-action="Upsert" asp-route-id="@productItem.Id" class="btn btn-outline-info mx-1">
+                                <i class="fa fa-edit"></i> Edit
+                            </a>
+                            <a asp-controller="ProductItem" asp-action="Details" asp-route-id="@productItem.Id" class="btn btn-outline-dark mx-1">
+                                <i class="fa fa-eye"></i> Details
+                            </a>
+                            <a asp-controller="ProductItem" asp-action="Delete" asp-route-id="@productItem.Id" class="btn btn-outline-danger mx-1">
+                                <i class="fa fa-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    /* Custom Styles */
+    .table th, .table td {
+        vertical-align: middle; /* Center the text vertically */
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #f5f5f5; /* Light gray background on hover */
+    }
+
+    .btn-outline-info, .btn-outline-dark, .btn-outline-danger {
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+        .btn-outline-info:hover {
+            background-color: #17a2b8; /* Info button hover color */
+            color: white;
+        }
+
+        .btn-outline-dark:hover {
+            background-color: #343a40; /* Dark button hover color */
+            color: white;
+        }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545; /* Danger button hover color */
+            color: white;
+        }
+</style>
+
+<!-- Make sure to include the Bootstrap and Font Awesome CDN -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

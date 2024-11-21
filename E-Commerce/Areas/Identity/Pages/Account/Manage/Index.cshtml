@@ -1,0 +1,33 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<h3 class="text-center">@ViewData["Title"]</h3>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form id="profile-form" method="post" class="p-4 shadow-sm rounded" style="background-color: #f8f9fa;">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+            <div class="form-floating mb-4">
+                <input asp-for="Username" class="form-control rounded-pill" placeholder="Please choose your username." disabled />
+                <label asp-for="Username" class="form-label">Username</label>
+            </div>
+
+            <div class="form-floating mb-4">
+                <input asp-for="Input.PhoneNumber" class="form-control rounded-pill" placeholder="Please enter your phone number." />
+                <label asp-for="Input.PhoneNumber" class="form-label">Phone Number</label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary rounded-pill">Save</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

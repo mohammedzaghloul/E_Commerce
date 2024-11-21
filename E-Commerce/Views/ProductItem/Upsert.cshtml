@@ -1,0 +1,70 @@
+﻿@model ProductItemWithProductSelectListVM
+@{
+    ViewData["Title"] = "Upsert";
+}
+
+<div class="container">
+    <form asp-action="Upsert" method="post" enctype="multipart/form-data" class="mt-4">
+        <div class="border p-4 rounded shadow">
+            <div class="row pb-2">
+                <h2 class="text-primary">@((Model.ProductItem.Id == 0) ? "Create" : "Update") Product Item</h2>
+                <hr />
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <input type="hidden" asp-for="ProductItem.Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="ProductItem.SKU" class="control-label"></label>
+                        <input asp-for="ProductItem.SKU" class="form-control" placeholder="Enter SKU" />
+                        <span asp-validation-for="ProductItem.SKU" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ProductItem.Price" class="control-label"></label>
+                        <input asp-for="ProductItem.Price" class="form-control" placeholder="Enter Price" />
+                        <span asp-validation-for="ProductItem.Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ProductItem.QuantityInStock" class="control-label"></label>
+                        <input asp-for="ProductItem.QuantityInStock" class="form-control" placeholder="Enter Quantity" />
+                        <span asp-validation-for="ProductItem.QuantityInStock" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ProductItem.ImageUrl" class="control-label">Image</label>
+                        <input type="file" name="ImageFile" class="form-control" />
+                        <span asp-validation-for="ProductItem.ImageUrl" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ProductItem.ProductId" class="control-label"></label>
+                        <select asp-for="ProductItem.ProductId" asp-items="@Model.ProductList" class="form-control">
+                            <option value="">-- Select Product --</option>
+                        </select>
+                        <span asp-validation-for="ProductItem.ProductId" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                @((Model.ProductItem.Id == 0) ? "Create" : "Update")
+                            </button>
+                        </div>
+                        <div class="col-md-6">
+                            <a asp-controller="ProductItem" asp-action="Index" class="btn btn-dark btn-block">
+                                Back to List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

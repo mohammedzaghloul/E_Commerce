@@ -1,0 +1,25 @@
+﻿<style >
+body {
+    background-color: #f8f9fa; /* Background color */
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px; /* Rounded card corners */
+    overflow: hidden; /* Prevent image overflow */
+}
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+.card-img-top {
+    border-radius: 15px 15px 0 0; /* Rounded top corners for the image */
+}
+
+.card-title {
+    margin-top: 10px; /* Space between image and title */
+}
+
+</style >

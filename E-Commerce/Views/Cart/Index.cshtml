@@ -1,0 +1,142 @@
+﻿@model ShoppingCartVM
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<partial name="_NotificationPartial" />
+
+<div class="container my-5">
+    <div class="row">
+        <!-- Shopping Cart Section -->
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0 mb-3 rounded">
+                <div class="card-header bg-dark text-white rounded-top">
+                    <h4 class="mb-0">Shopping Cart</h4>
+                </div>
+                <div class="card-body">
+                    @if (Model.ShoppingCartList is null)
+                    {
+                        <p class="text-center text-muted">Your cart is empty. <a asp-action="Index" asp-controller="Home" class="text-primary">Continue Shopping</a></p>
+                    }
+                    else
+                    {
+                        foreach (var item in Model.ShoppingCartList)
+                        {
+                            <div class="row align-items-center border-bottom py-3">
+                                <div class="col-3 text-center">
+                                    <img src="@item.ProductItem.ImageUrl" alt="Product Image" class="rounded img-fluid" style="max-width: 80px;" />
+                                </div>
+                                <div class="col-5">
+                                    <h6 class="text-primary font-weight-bold">@item.ProductItem.SKU</h6>
+                                    <p class="text-muted small mb-0">@item.ProductItem?.Product?.Description</p>
+                                </div>
+                                <div class="col-2 text-center">
+                                    <h6 class="font-weight-bold text-secondary">@item.ProductItem.Price.ToString("C", new System.Globalization.CultureInfo("en-US"))</h6>
+                                </div>
+                                <div class="col-2 text-center">
+                                    <div class="quantity-controls d-flex align-items-center justify-content-center">
+                                        <a asp-action="Minus" asp-route-CartId="@item.Id" class="btn btn-sm btn-outline-secondary rounded-circle">-</a>
+                                        <span class="mx-2">@item.Quantity</span>
+                                        <a asp-action="Plus" asp-route-CartId="@item.Id" class="btn btn-sm btn-outline-secondary rounded-circle">+</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="card-footer bg-light rounded-bottom">
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-primary btn-block">← Continue Shopping</a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Order Summary Section -->
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 rounded">
+                <div class="card-header bg-dark text-white rounded-top">
+                    <h4 class="mb-0">Order Summary</h4>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <span>Items</span>
+                        <span>@Model.ShoppingCartList.ToList().Count</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Subtotal</span>
+                        <span>@Model.Order.TotalPrice.ToString("C", new System.Globalization.CultureInfo("en-US"))</span>
+                    </div>
+                   
+                    <div class="d-flex justify-content-between mb-4">
+                        <span>Total</span>
+                        <span class="font-weight-bold">@((Model.Order.TotalPrice ).ToString("C", new System.Globalization.CultureInfo("en-US")))</span>
+                    </div>
+                    <a asp-action="Summary" class="btn btn-primary btn-block rounded">Proceed to Checkout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Overall container style */
+    .container {
+        max-width: 1200px;
+    }
+
+    /* Card styling */
+    .card {
+        border-radius: 10px;
+    }
+
+    .card-header {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 1rem;
+    }
+
+    .card-footer {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        padding: 0.75rem;
+        background-color: #f8f9fa;
+    }
+
+    /* Text and button styles */
+    h4 {
+        font-weight: bold;
+    }
+
+    .text-primary {
+        color: #007bff !important;
+    }
+
+    .font-weight-bold {
+        font-weight: bold;
+    }
+
+    /* Quantity control buttons */
+    .quantity-controls a {
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Select styling */
+    select.form-control-sm {
+        font-size: 0.9rem;
+    }
+
+    /* Button styling */
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-outline-secondary {
+        color: #6c757d;
+        border-color: #6c757d;
+    }
+</style>

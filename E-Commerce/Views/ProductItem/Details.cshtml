@@ -1,0 +1,67 @@
+﻿@model ProductItem
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<style>
+    .form-container{
+        width : 60%;
+        margin : 40px auto;
+    }
+</style>
+<div class="form-container">
+
+    <form asp-action="Details" method="post">
+
+        <input hidden asp-for="Id"/>
+        <input hidden asp-for="ProductId" />
+
+        <div class="form-group">
+            <label class="form-label">Product Name</label>
+            <div class="input-group input-group-lg">
+                <input value="@Model.Product?.Name" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">SKU</label>
+            <div class="input-group input-group-lg">
+                <input value="@Model.SKU" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Quantity in stock</label>
+            <div class="input-group input-group-lg">
+                <input value="@Model.QuantityInStock" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">ImageUrl</label>
+            <div class="input-group input-group-lg">
+                <img src="@Model.ImageUrl" alt="Product Image" class="img-fluid" style="max-width: 300px;" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Price</label>
+            <div class="input-group input-group-lg">
+                <input value="@Model.Price" class="form-control" readonly />
+            </div>
+        </div>
+
+        <br />
+
+        <div class="row">
+            <div class="col-6 col-md-3">
+                <a asp-controller="ProductItem" asp-action="Index" class="btn btn-dark border  form-control">
+                    Back to List
+                </a>
+            </div>
+        </div>
+    </form>
+
+</div>

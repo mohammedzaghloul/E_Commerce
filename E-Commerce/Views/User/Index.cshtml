@@ -1,0 +1,67 @@
+﻿@model IEnumerable<User>
+@{
+    ViewData["Title"] = "User List";
+}
+
+<partial name="_NotificationPartial" />
+
+<div class="container my-5">
+    <div class="row align-items-center pb-3">
+        <div class="col-md-6">
+            <h2 class="text-primary">User List</h2>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered table-striped align-middle shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Status</th>
+                    <th scope="col" class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.FullName</td>
+                        <td>@user.Email</td>
+                        <td>@user.PhoneNumber</td>
+                        <td>@user.Role</td>
+                        <td>
+                            @if (user.LockoutEnd == null)
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Locked</span>
+                            }
+                        </td>
+                        <td class="text-center">
+                            <a asp-controller="User" asp-action="LockUnlock" asp-route-id="@user.Id" class="btn btn-outline-@(user.LockoutEnd == null ? "danger" : "success") custom-btn mx-1">
+                                <i class="fa-solid @(user.LockoutEnd == null ? "fa-lock" : "fa-unlock")"></i>
+                                @(user.LockoutEnd == null ? "Lock" : "Unlock")
+                            </a>
+
+                            <a asp-controller="User" asp-action="Edit" asp-route-id="@user.Id" class="btn btn-outline-primary custom-btn mx-1">
+                                <i class="fas fa-edit"></i> Permissions
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .custom-btn {
+        padding: 8px 16px; /* Slightly bigger than default */
+        font-size: 1rem; /* Increased font size */
+    }
+</style>

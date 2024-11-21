@@ -1,0 +1,51 @@
+﻿@model CategoryVM
+
+<h4 class="text-center">Category Management</h4>
+<hr />
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="Upsert" method="post" enctype="multipart/form-data" class="bg-light p-4 rounded shadow">
+                <input type="hidden" asp-for="Category.Id" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group">
+                    <label asp-for="Category.Name" class="control-label"></label>
+                    <input asp-for="Category.Name" class="form-control" placeholder="Enter Category Name" />
+                    <span asp-validation-for="Category.Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="@Model.Category.ImageUrl" class="control-label">Image</label>
+                    <input type="file" name="ImageFile" class="form-control" />
+                    <span asp-validation-for="@Model.Category.ImageUrl" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Category.ParentCategoryId" class="control-label"></label>
+                    <select asp-for="Category.ParentCategoryId" class="form-control" asp-items="Model.CategoryList">
+                        <option value="">-- Select Parent Category --</option>
+                    </select>
+                    <span asp-validation-for="Category.ParentCategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        @((Model.Category.Id == 0) ? "Create" : "Update")
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-3">
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

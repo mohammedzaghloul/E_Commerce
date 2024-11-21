@@ -1,0 +1,125 @@
+﻿@model ShoppingCart
+
+<form method="post">
+    <input hidden asp-for="ProductItemId" /> 
+
+    <div class="card shadow-lg border-0 mt-4 rounded-3">
+        <!-- Card Header -->
+        <div class="card-header bg-gradient bg-dark text-light py-4 rounded-top">
+            <div class="text-center">
+                <h2 class="text-uppercase mb-0" style="letter-spacing: 2px;">@Model.ProductItem?.Product?.Name</h2>
+            </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body py-5 px-4">
+            <div class="row">
+                <!-- Back Button -->
+                <div class="col-12 mb-4">
+                    <a asp-action="productitemindex" asp-route-Id="@Model.ProductItem?.ProductId"
+                       class="btn btn-outline-dark btn-sm rounded-pill">
+                        <i class="fas fa-arrow-left"></i> Back to Products
+                    </a>
+                </div>
+            </div>
+
+            <div class="row align-items-center">
+                <!-- Product Image -->
+                <div class="col-12 col-lg-4 text-center mb-4">
+                    <img src="@Model.ProductItem?.ImageUrl" class="img-fluid rounded shadow-sm"
+                         style="max-height: 300px; object-fit: cover;" alt="@Model.ProductItem?.Product?.Name" />
+                </div>
+
+                <!-- Product Info -->
+                <div class="col-12 col-lg-7 offset-lg-1">
+                    <div class="mb-3">
+                        <span class="badge bg-primary text-white px-3 py-2 rounded-pill">@Model.ProductItem.Product.Name</span>
+                    </div>
+                    <h6 class="text-muted mb-3">SKU: @Model.ProductItem?.SKU</h6>
+                    <h5 class="text-dark mb-3">
+                        Price: <strong class="text-success">@Model.ProductItem.Price.ToString("C", new System.Globalization.CultureInfo("en-US"))</strong>
+                    </h5>
+
+                    <!-- Quantity Input -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-text bg-primary text-white border-0 fw-bold rounded-start">
+                                    Quantity
+                                </span>
+                                <input asp-for="@Model.Quantity" type="number" value="1" class="form-control text-center rounded-end" min="1" />
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <button type="submit"  class="btn btn-danger w-100 py-3 rounded-pill text-uppercase fw-bold">
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Optional Custom CSS for Modern Look -->
+<style>
+    body {
+        background-color: #f7f9fc; /* Light, modern background */
+        font-family: 'Roboto', sans-serif; /* Clean, modern font */
+    }
+
+    .card-header {
+        background: linear-gradient(90deg, rgba(0, 123, 255, 1) 0%, rgba(0, 123, 255, 0.8) 100%);
+    }
+
+    .btn-outline-dark:hover {
+        background-color: #343a40;
+        color: white;
+    }
+
+    .btn-success {
+        background: linear-gradient(90deg, rgba(40, 167, 69, 1) 0%, rgba(40, 167, 69, 0.8) 100%);
+        border: none;
+    }
+
+        .btn-success:hover {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+    .btn-danger {
+        background: linear-gradient(90deg, rgba(220, 53, 69, 1) 0%, rgba(220, 53, 69, 0.8) 100%);
+        border: none;
+    }
+
+    .input-group-text {
+        font-weight: bold;
+    }
+
+    .card-body {
+        background-color: #fff;
+        border-radius: 15px;
+    }
+
+    .badge {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+    }
+
+    h2, h5 {
+        font-weight: bold;
+    }
+
+    img {
+        transition: transform 0.2s ease;
+    }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+</style>

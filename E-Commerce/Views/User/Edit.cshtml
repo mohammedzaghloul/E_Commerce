@@ -1,0 +1,49 @@
+﻿@model User
+
+@{
+    SelectList RolesList = new SelectList(ViewBag.Roles, "Id", "Name");
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">User Permissions</h2>
+            <hr />
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <div class="mb-3 row p-1">
+                    <input type="hidden" asp-for="@Model.Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="mb-3 row p-1">
+                        <label asp-for="FullName" class="p-0"></label>
+                        <input asp-for="FullName" readonly class="form-control" />
+                    </div>
+                    <div class="mb-3 row p-1">
+                        <label asp-for="Email" class="p-0"></label>
+                        <input asp-for="Email" readonly class="form-control" />
+                    </div>
+
+
+                    <div class="mb-3 row p-1">
+                        <label asp-for="Role" class="p-0"></label>
+                        <select asp-for="Role" asp-items="RolesList" class="form-control">
+                            <option value="0" selected>--Select Role--</option>
+                        </select>
+                    </div>
+
+                    <br />
+                    <br />
+
+                    <input type="submit" value="Update User Role" class="btn btn-success" />
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

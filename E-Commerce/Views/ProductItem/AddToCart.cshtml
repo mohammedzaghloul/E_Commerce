@@ -1,0 +1,68 @@
+﻿@model ShoppingCart
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+    .form-container{
+        width : 60%;
+        margin : 40px auto;
+    }
+</style>
+
+<div class="form-container">
+
+    <form asp-action="ConfirmAddToCart" method="post">
+
+        <input hidden asp-for="ProductItemId" />
+
+        <div class="form-group">
+            <label class="form-label">SKU</label>
+            <div class="input-group input-group-lg">
+                <input value="@Model.ProductItem?.SKU" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Quantity in stock</label>
+            <div class="input-group input-group-lg">
+                <input value="@Model.ProductItem?.QuantityInStock" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Image</label>
+            <div class="input-group input-group-lg">
+                <img src="@Model.ProductItem.ImageUrl" alt="Product Image" class="img-fluid" style="max-width: 300px;" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Price For One Item</label>
+            <div class="input-group input-group-lg">
+                <input value="@Model.ProductItem.Price" class="form-control" readonly />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Quantity" class="form-label">Count</label>
+            <div class="input-group input-group-lg">
+                <input value="@Model.Quantity" asp-for="Quantity" class="form-control" />
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-6 col-md-3">
+                <button type="submit" class="btn btn-primary form-control">  Add To Cart  </button>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <a asp-controller="ProductItem" asp-action="Index" class="btn btn-dark border  form-control">
+                    Cancel
+                </a>
+            </div>
+        </div>
+    </form>
+
+</div>

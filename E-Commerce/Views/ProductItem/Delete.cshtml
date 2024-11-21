@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+<form asp-action="Delete" method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Delete Product Item</h2>
+            <hr />
+        </div>
+        <div class="mb-3 row p-1">
+            <div class="row">
+                <div class="col-6 col-md-3">
+                    <button type="submit" class="btn btn-danger form-control">Delete</button>
+                </div>
+                <div class="col-6 col-md-3">
+                    <a asp-controller="ProductItem" asp-action="Index" class="btn btn-dark border  form-control">
+                        Back to List
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</form>

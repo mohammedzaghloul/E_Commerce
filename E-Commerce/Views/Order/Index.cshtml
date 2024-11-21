@@ -1,0 +1,72 @@
+﻿@model List<Order>
+@{
+    ViewData["Title"] = "Order List";
+}
+
+<partial name="_NotificationPartial" />
+
+<div class="container my-5">
+    <div class="row align-items-center pb-4">
+        <div class="col-md-6">
+            <h2 class="text-primary">Order List</h2>
+        </div>
+       
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered table-striped align-middle shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Total</th>
+                    <th scope="col" class="text-center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.Id</td>
+                        <td>@order.Name</td>
+                        <td>@order.PhoneNumber</td>
+                        <td>@order.User.Email</td>
+                        <td>
+                            <span class="badge @GetStatusBadgeClass(order.OrderStatuss)">
+                                @order.OrderStatuss
+                            </span>
+                        </td>
+                        <td>@order.TotalPrice.ToString("C", new System.Globalization.CultureInfo("en-US"))</td>
+                        <td class="text-center">
+                            <a asp-controller="Order" asp-action="Details" asp-route-OrderId="@order?.Id" class="btn btn-outline-info btn-sm mx-1">
+                                <i class="fa fa-eye"></i> View
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Custom JavaScript (if needed for extra functionality)
+    </script>
+}
+
+@functions {
+    string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Pending" => "bg-warning text-dark",
+            "Completed" => "bg-success",
+            "Cancelled" => "bg-danger",
+            _ => "bg-secondary"
+        };
+    }
+}
